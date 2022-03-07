@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require("mongoose");
+const jwt = require('jsonwebtoken')
 const userSchema = require(__dirname + "/models/Users.js");
 const port = 3000
 const app = express();
@@ -15,6 +16,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 mongoose.connect("mongodb://localhost:27017/users", { useUnifiedTopology: true, useNewUrlParser: true });
 const User = userSchema.getUser();
 
+// endpoint para registrar usuario
 app.post('/register', (req, res)=>{
    
     const username = req.body.username;
@@ -42,6 +44,8 @@ app.post('/register', (req, res)=>{
 
 })
 
+
+// login de usuario
 app.post('/login', (req, res)=>{
 
     const username = req.body.username;
@@ -50,7 +54,14 @@ app.post('/login', (req, res)=>{
     User.findOne({username: username}, (err, foundUser)=>{
         if(!err){
             if(foundUser && foundUser.password == password){
-             res.send({ Status: 200, mensaje: "Inicio de sesion exitoso!." });
+
+
+                jwt.sign({foundUser}, 'secretKey', (err, token) =>{
+
+                    res.send({ Status: 200, mensaje: "Inicio de sesion exitoso!.", token: token});
+
+                })
+
             } else {
                 res.send({ Status: 100, mensaje: "Inicio de sesion fallido, revise sus credenciales y vuelva a intentar." });
             }
@@ -66,6 +77,7 @@ app.post('/login', (req, res)=>{
 
 })
 
+
 app.listen(port, ()=>{
-    console.log(`Example app running on port ${port}`)
+    console.log(`App running on port ${port}`)
 })
