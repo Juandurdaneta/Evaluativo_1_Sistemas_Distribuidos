@@ -15,15 +15,11 @@ const movieSchema = new mongoose.Schema({
     },
     poster_url : {
         type: String
-    },
-    movieId : {
-        type: Number,
-        required: true
     }
 })
 
 
-movieSchema.plugin(AutoIncrement, {inc_field: 'id'});
+movieSchema.plugin(AutoIncrement, {inc_field: 'movieId'});
 
 exports.getMovie = function() {
     return mongoose.model("Movie", movieSchema)

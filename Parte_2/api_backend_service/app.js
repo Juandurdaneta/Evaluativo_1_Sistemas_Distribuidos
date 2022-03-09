@@ -18,31 +18,26 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 // agregar una nueva pelicula
 app.post('/movies', (req,res)=>{
     
-    const movieCount =  Movie.find({},(err, moviesFound) => {
-        movieCount = moviesFound.length + 1
-    }) 
 
-    console.log(movieCount)
 
-    // const newMovie = new Movie({
-    //     movieId: movieCount,
-    //     ...req.body
-    // }
-    // )
+    const newMovie = new Movie(
+        req.body
+    
+    )
 
-    // newMovie.save((err) =>{
-    //     if(err){
-    //         console.log('Error al crear la pelicula')
-    //         console.log(err)
-    //         res.send({
-    //             status: 100,
-    //             mensaje: "Hubo un error al agregar la pelicula a la base de datos, intentalo de nuevo.",
-    //           });
-    //     } else{
-    //         console.log('Pelicula agregada exitosamente')
-    //         res.send({ Status: 200, mensaje: "Pelicula agregada a la base de datos Exitosamente!." });
-    //     }
-    // })
+    newMovie.save((err) =>{
+        if(err){
+            console.log('Error al crear la pelicula')
+            console.log(err)
+            res.send({
+                status: 100,
+                mensaje: "Hubo un error al agregar la pelicula a la base de datos, intentalo de nuevo.",
+              });
+        } else{
+            console.log('Pelicula agregada exitosamente')
+            res.send({ Status: 200, mensaje: "Pelicula agregada a la base de datos Exitosamente!." });
+        }
+    })
 
 })
 
@@ -65,15 +60,53 @@ app.get('/movies', (req,res)=>{
      })
 })
 
+// obtener una pelicula en especifico
+app.get('/movies/:movieId', (req, res)=>{
+    const movieId = req.params.movieId
+
+    Movie.find({movieId: movieId}, (err, movieFound)=>{
+        if(!err && movieFound[0]){
+            res.send({ 
+                status: 200, 
+                peliculaEncontrada: movieFound[0]
+            });
+        } else if(!movieFound[0]){
+            res.send({
+                status: 100,
+                mensaje: `No se ha encontrado pelicula con el id ${movieId}`
+            })
+        } else if(err){
+            res.send(err)
+        }
+    })
+})
+
 // actualizar una pelicula 
-app.put('/movies', (req,res)=>{
+app.put('/movies/:movieId', (req,res)=>{
     
 })
 
 // eliminar una pelicula
-app.delete('/movies', (req,res)=>{
-    
-})
+app.delete('/movies/:movieId', (req,res)=>{
+    try{
+        Movie.findOneAndDelete({movieId: req.params.movieId}, (err, movieDeleted)=>{
+            if(!err){
+                res.send({ 
+                    status: 200, 
+                    mensaje: 'Pelicula eliminada exitosamente'
+                });
+            } else {
+                res.send({ 
+                    status: 100, 
+                    mensaje: "Se ha producido un error, vuelva a intentarlo."
+                });
+            }
+        });
+       
+    } catch(err){
+        res.send(err);
+    }
+});
 
 
 
