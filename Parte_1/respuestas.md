@@ -5,7 +5,7 @@
 
 Para esta evaluación, lea el código en tres archivos `test1.js`, `test2.js` y `test3.mjs`, análizelos e intente adivinar el orden de las lineas que imprime en pantalla, luego, para cada uno, realice un texto descriptivo que explique el por qué del orden de ejecución observado.
 
-## Respuesta
+## Respuestas
 
 ### Output de test1.js
 

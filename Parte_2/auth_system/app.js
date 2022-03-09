@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require("mongoose");
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 const userSchema = require(__dirname + "/models/Users.js");
 const port = 3000
 const app = express();
@@ -22,6 +22,7 @@ app.post('/register', (req, res)=>{
     const username = req.body.username;
     const password = req.body.password;
 
+    
     const newUser = new User({
         username: username,
         password: password
