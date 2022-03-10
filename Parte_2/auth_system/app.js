@@ -21,7 +21,6 @@ app.post('/register', (req, res)=>{
    
     const username = req.body.username;
     const password = req.body.password;
-
     
     const newUser = new User({
         username: username,
@@ -57,11 +56,15 @@ app.post('/login', (req, res)=>{
             if(foundUser && foundUser.password == password){
 
 
-                jwt.sign({foundUser}, 'secretKey', (err, token) =>{
-
-                    res.send({ Status: 200, mensaje: "Inicio de sesion exitoso!.", token: token});
-
+                res.send({
+                    status: 200
                 })
+
+                // jwt.sign({foundUser}, 'secretKey', (err, token) =>{
+
+                //     res.send({ Status: 200, mensaje: "Inicio de sesion exitoso!.", token: token});
+
+                // })
 
             } else {
                 res.send({ Status: 100, mensaje: "Inicio de sesion fallido, revise sus credenciales y vuelva a intentar." });
