@@ -83,7 +83,21 @@ app.get('/movies/:movieId', (req, res)=>{
 
 // actualizar una pelicula 
 app.put('/movies/:movieId', (req,res)=>{
-    
+  
+    Movie.findOneAndUpdate({movieId: req.params.movieId}, req.body, (err, movieFound)=>{
+        if(!err && movieFound){
+            res.send({ 
+                status: 200, 
+                mensaje: 'Pelicula actualizada exitosamente!'
+            }); 
+        } else{
+            res.send({
+                status: 100,
+                mensaje: 'Se ha producido un error. Vuelve a intentarlo.'
+            })
+        }
+    })
+
 })
 
 // eliminar una pelicula
