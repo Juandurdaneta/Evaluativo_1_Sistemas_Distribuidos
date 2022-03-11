@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const port = 4000;
 const fetch = require('node-fetch');
 const app = express();
+const compression = require('compression');
 const jwt = require('jsonwebtoken');
 
 
@@ -12,6 +13,18 @@ app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
     extended: true
 }));
+
+// comprimiendo respuestas en caso de que la peticion lo desee
+app.use(compression({
+    filter: shouldCompress
+}))
+
+function shouldCompress(req, res)  {
+    if(req.headers['x-no-compression']) {
+        return false
+    }
+    return compression.filter(req, res);
+}
 
 // config bd
 mongoose.connect("mongodb://localhost:27017/users", { useUnifiedTopology: true, useNewUrlParser: true });
