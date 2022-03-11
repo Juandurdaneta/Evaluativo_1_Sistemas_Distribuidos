@@ -74,7 +74,7 @@ Esto retornara un json web token el cual sera utilizado para verificar la identi
 ## Agregar una pelicula a la base de datos
 
 ```http
-  post /movies
+  POST /movies
 ```
 
 | Parameter | Type     | Description                       |
@@ -88,7 +88,7 @@ Esto retornara un json web token el cual sera utilizado para verificar la identi
 ## Actualizar una pelicula
 
 ```http
-  put /movies/${movieId}
+  PUT /movies/${movieId}
 ```
 
 | Parameter | Type     | Description                       |
@@ -99,11 +99,10 @@ Esto retornara un json web token el cual sera utilizado para verificar la identi
 ## Eliminar una pelicula
 
 ```http
-  delete /movies/${movieId}
+  DELETE /movies/${movieId}
 ```
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
 | `authorization` | `string` | **Requerido**. El token de autenticacion de JWT |
 | `movieId` | `string` | **Requerido**. El id de la pelicula a eliminar |
-
