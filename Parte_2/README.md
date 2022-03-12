@@ -24,7 +24,7 @@ Ejecutar los siguientes comando dentro de cada una de las carpetas api_backend_s
 
 ## Referencia de la API
 
-Las peticiones deben ser realizadas a traves del api_frontend_servide que es el servicio que actua de cara a las peticiones.
+Las peticiones deben ser realizadas a traves del api_frontend_service que es el servicio que actua de cara a las peticiones.
 
 ### Registrar un usuario nuevo
 
@@ -106,3 +106,5 @@ Esto retornara un json web token el cual sera utilizado para verificar la identi
 | :-------- | :------- | :-------------------------------- |
 | `authorization` | `string` | **Requerido**. El token de autenticacion de JWT |
 | `movieId` | `string` | **Requerido**. El id de la pelicula a eliminar |
+
+## EN LA CARPETA SCREENSHOTS SE PROVEEN IMAGENES DE EJEMPLO DE COMO UTILIZAR LA API USANDO POSTMAN

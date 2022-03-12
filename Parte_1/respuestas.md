@@ -57,3 +57,24 @@ Luego observamos que los temporizadores timeout() se ejecutan antes que las func
 ```
 
 En este caso podemos notar que los eventos se están ejecutando dentro de un ciclo I/O, si nos fijamos, el output es el mismo hasta que llegamos a los immediate y a los timers, cuando el contexto en el cual se llaman los temporizadores y los immediate son dentros de un ciclo i/o, los immediate siempre se ejecutaran antes que los temporizadores.
+
+### Output de test3.mjs
+
+```javascript
+    new promise
+    async function
+    then 1
+    then 2
+    microtask 1
+    microtask 2
+    nextTick 1
+    nextTick 2
+    nextTick 3
+    immediate 1
+    immediate 2
+    timeout 1
+    timeout 2
+```
+
+En este tercer caso nos encontramos un archivo con extension .mjs el cual pertenece a ECMAscript. Como podemos observar el event loop aqui es diferente. De nuevo comenzamos con las promesas y la funcion asincrona las cuales se ejecutan en paralelo. Luego, inmediatamente tenemos el fullfilment de estas promesas, que seria el then 1 y then 2, estos son los metodos de la promesa y de la funcion asincrona respectivamente. Al terminar de ejecutarse los metodos then, tenemos los microtasks, estos a diferencia de los casos que vimos anteriormente se ejecutan antes de los next tick's y luego de las promesas. Los siguiente evento en la pila de eventos es el inmediate y el timeout. En este caso podemos observar que los inmediate van antes que los temporizadores, tal como si estuviese dentro de un ciclo I/O, parecido a lo que vimos en el caso anterior.
+
